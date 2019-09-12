@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BloggingDemo.Enitities;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +37,20 @@ namespace BloggingDemo
 
             // Navigation Property
             public virtual Blog Blog { get; set; }
+        } // end of post class
+    } // end of entities namespace
+
+    namespace DAL
+    {
+        public class BloggingContext : DbContext
+        {
+            public BloggingContext() : base("name=BlogDb")
+            {
+
+            }
+
+            public DbSet<Blog> Blogs { get; set; }
+            public DbSet<Post> Posts { get; set; }
         }
     }
 }
