@@ -23,6 +23,8 @@ namespace WestWindSystem.BLL
                 // list supliers, categories, addresses
             }
         }
+        #endregion
+
         [DataObjectMethod(DataObjectMethodType.Select)]
         public List<Supplier> listSuppliers()
         {
@@ -47,6 +49,6 @@ namespace WestWindSystem.BLL
                 return context.Addresses.ToList();
             }
         }
-        #endregion
+        
     }
 }

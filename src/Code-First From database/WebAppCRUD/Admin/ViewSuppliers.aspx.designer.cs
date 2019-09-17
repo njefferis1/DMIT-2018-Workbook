@@ -10,24 +10,24 @@
 namespace WebAppCRUD.Admin {
     
     
-    public partial class ViewSuppliers {
+    public partial class ViewSuppliers1 {
         
         /// <summary>
-        /// SupplierGridView control.
+        /// SupplierListView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView SupplierGridView;
+        protected global::System.Web.UI.WebControls.ListView SupplierListView;
         
         /// <summary>
-        /// SupplierDataSource control.
+        /// SuppliersDataSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource SupplierDataSource;
+        protected global::System.Web.UI.WebControls.ObjectDataSource SuppliersDataSource;
     }
 }
