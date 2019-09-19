@@ -1,12 +1,15 @@
 <Query Kind="Program" />
 
+//TO DO
+// Look up yield and IEnumerable
+
 void Main()
 {
     Instructors.Dump();
 	//  foreach(var person in Instructors)
 	var best = from person in Instructors
 	//             \string/   \string[]/
-	           where person.StartsWith("D")
+	           where person.StartsWith("D") // StartsWith: returns boolian
 			   select person;
 	best.Dump("The best instructors");
 }
