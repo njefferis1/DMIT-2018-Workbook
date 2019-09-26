@@ -40,6 +40,8 @@ namespace WestWindSystem.BLL
         }
         #endregion
 
+        
+
         #region Product Info CRUD Processing
         #region Supplier/Category Supporting Lists
         [DataObjectMethod(DataObjectMethodType.Select)]
