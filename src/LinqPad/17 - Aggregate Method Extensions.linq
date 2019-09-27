@@ -1,6 +1,6 @@
 <Query Kind="Program">
   <Connection>
-    <ID>5265d1f5-021e-4878-9587-a78d45e7824e</ID>
+    <ID>4a556e81-9d4c-4a3e-8452-a454259f82f1</ID>
     <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
@@ -21,7 +21,7 @@ void Main()
     var productCount = Products.Count();
     productCount.Dump("Total number of products");
     // The .Count() method can also take a "filter" expression
-    productCount = Products.Count(item => item.ProductName.Contains("Chef"));
+    productCount = Products.Count(item => item.ProductName.Contains("Chef")); // counts products with 'chef' in the name
     productCount.Dump("Number of products with Chef in the name");
     // A "Lambda Expression" is one that acts as an "ad-hoc" method is passed
     // into the .Count() method.
