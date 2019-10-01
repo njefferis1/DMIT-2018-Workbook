@@ -5,7 +5,7 @@
     <asp:GridView ID="AddressesGridView" runat="server" CssClass="table table-hover" AutoGenerateColumns="False" DataSourceID="AddressDataSource">
         <Columns>
             <asp:BoundField DataField="AddressID" HeaderText="AddressID" SortExpression="AddressID"></asp:BoundField>
-            <asp:BoundField DataField="Address1" HeaderText="Address1" SortExpression="Address1"></asp:BoundField>
+            <asp:BoundField DataField="Address1" HeaderText="Address" SortExpression="Address1"></asp:BoundField>
             <asp:BoundField DataField="City" HeaderText="City" SortExpression="City"></asp:BoundField>
             <asp:BoundField DataField="Region" HeaderText="Region" SortExpression="Region"></asp:BoundField>
             <asp:BoundField DataField="PostalCode" HeaderText="PostalCode" SortExpression="PostalCode"></asp:BoundField>
