@@ -27,86 +27,81 @@ I) List the company names of all Suppliers in North America (Canada, USA, Mexico
 */
 
 //a)
-/*
+
 from customer in Customers
-where customer.Orders.Count > 5
+where customer.Orders.Count() > 5
 select customer.CompanyName
-*/
+
 
 //b)
-/*
+
 from region in Regions
 select region.RegionDescription
-*/
+
 
 //C) Get a list of all the territory names
-/*
+
 from territory in Territories
 select territory.TerritoryDescription
-*/
+
 
 //D) List all the regions and the number of territories in each region
-/*
-from region in Regions
+
+from place in Regions
 select new
 {
-	Region = region.RegionDescription,
-	Territories = region.Territories.Count
+	Region = place.RegionDescription,
+	Territories = place.Territories.Count()
 }
-*/
+
 
 //E) List all the region and territory names in a "flat" list
-/*
-from data in Territories
+
+from place in Territories
 select new
 {
-	data.TerritoryDescription,
-	data.Region.RegionDescription
+	Region = place.Region.RegionDescription,
+	Territory = place.TerritoryDescription
 }
-*/
+
 
 //F) List all the region and territory names as an "object graph"
 //   - use a nested query
-/*
-from data in Regions
+
+from place in Regions
 select new
 {
-	Region = data.RegionDescription,
-	Territory = from territory in Territories
+	Region = place.RegionDescription,
+	Territory = from territory in place.Territories
 				select territory.TerritoryDescription
 }
-*/
+
 
 //G) List all the product names that contain the word "chef" in the name.
-/*
-from product in Products
-where product.ProductName.Contains("chef")
-select product.ProductName
-*/
+
+from item in Products
+where item.ProductName.ToLower().Contains("chef")
+select item.ProductName
+
 
 //H) List all the discontinued products, specifying the product name and unit price.
 
-/*
-from product in Products
-where product.Discontinued == true
+
+from item in Products
+where item.Discontinued //== true -> not necessary
 select new
 {
-	Name = product.ProductName,
-	Price = product.UnitPrice
+	Name = item.ProductName,
+	Price = item.UnitPrice
 }
-*/
+
 
 //I) List the company names of all Suppliers in North America (Canada, USA, Mexico)
-from supplier in Suppliers
-where supplier.Address.Region != "Carrabean"
-select supplier.CompanyName
-
-
-
-
-
-
-
+from vendor in Suppliers
+where vendor.Address.Country == "Canada"
+	|| vendor.Address.Country == "USA"
+	|| vendor.Address.Country == "Mexico"
+select vendor.CompanyName
 
 
 
