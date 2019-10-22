@@ -37,106 +37,84 @@
 
 // A) Group employees by region
 
-//*****************************SKIP*********************************
-
-from employee in Employees
+from place in Regions
 select new
 {
-	Region = employee.Address.Region,
-	Employees = employee.FirstName + " " + employee.LastName
+	Region = place.RegionDescription,
+	//Getting employees and removing duplicates
+	Employees = (from area in place.Territories
+				from manager in area .EmployeeTerritories
+				select manager.Employee.FirstName + " " + manager.Employee.LastName).Distinct(),
+	Employees2 = from area in place.Territories
+					from manager in area.EmployeeTerritories
+					group manager by manager.Employee into areaManagers
+					select areaManagers.Key.FirstName + " " + areaManagers.Key.LastName
 }
 
-// B) List all the Customers by Company Name. Include the Customer's company name, contact name, and other contact information in the result.
+// B) List all the Customers sorted by Company Name. Include the Customer's company name, contact name, and other contact information in the result.
 
-from customer in Customers
+from company in Customers
 select new
 {
-	customer.CompanyName,
-	customer.ContactName,
-	customer.ContactTitle,
-	customer.ContactEmail,
-	customer.Phone,
-	customer.Fax,
+	CompanyName = company.CompanyName,
+	Contact = new
+			{
+				Name = company.ContactName,
+				Title = company.ContactTitle,
+				Email = company.ContactEmail,
+				Phone = company.Phone,
+				Fax = company.Fax
+			}
 }
 
 
 // C) List all the employees and sort the result in ascending order by last name, then first name. Show the employee's first and last name separately, along with the number of customer orders they have worked on.
-from employee in Employees
-orderby employee.LastName ascending
+from person in Employees
+orderby person.LastName, person.FirstName //ascending -> not needed
 select new
 {
-	employee.LastName,
-	employee.FirstName,
-	employee.SalesRepOrders.Count
+	person.FirstName,
+	person.LastName,
+	OrderCount = person.SalesRepOrders.Count()
 }
 
 // D) List all the employees and sort the result in ascending order by last name, then first name. Show the employee's first and last name separately, along with the number of customer orders they have worked on.
-from employee in Employees
-orderby employee.LastName ascending
+from person in Employees
+orderby person.LastName, person.FirstName //ascending -> not needed
 select new
 {
-	employee.LastName,
-	employee.FirstName,
-	employee.SalesRepOrders.Count
+	person.FirstName,
+	person.LastName,
+	OrderCount = person.SalesRepOrders.Count()
 }
 
-// E) Group all customers by city. Output the city name, aalong with the company name, contact name and title, and the phone number.
-from customers in Customers
+// E) Group all customers by city. Output the city name, along with the company name, contact name and title, and the phone number.
+from company in Customers
+group company by company.Address.City into customerByCity
 select new
 {
-	city = customers.Address.City,
-	company = customers.CompanyName,
-	contact = customers.ContactName,
-	title = customers.ContactTitle,
-	phone = customers.Phone
+	city = customerByCity.Key,
+	Customers = from buyer in customerByCity
+				select new
+				{
+					buyer.CompanyName,
+					buyer.ContactName,
+					buyer.ContactTitle,
+					buyer.Phone
+				}
 }
-//****************************doesnt sort by city***********************************
 
 
+// F) List all the Suppliers, by Country
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+from vendor in Suppliers
+group vendor by vendor.Address.Country into nationalSuppliers
+select new
+{
+	Country = nationalSuppliers.Key,
+	Suppliers = from company in nationalSuppliers
+				select company.CompanyName
+}
 
 
 
