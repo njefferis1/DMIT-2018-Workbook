@@ -89,3 +89,27 @@ public class OrderItem
 ```
 
 ## BLL Processing
+
+All product shipments are handled by the **`OrderProcessingController`**. It supports the following methods.
+
+- **`List<OutstandingOrder> LoadOrders(int supplierId)`**
+    - **Validation:**
+        - Make sure the supplier ID exsts, otherwise throw an exception
+        - [Advanced:] *Make sure the Logged-in user works for the identified supplier*
+    - Query for outstanding orders, getting data from the following tables:
+        - TODO: List table names
+- **`List<ShipperSelection> ListShipper()`**
+    - Get all the shippers from the db
+- **`void ShipOrder(int orderId, ShippingDirections shipping, List<ShippedItem> items)`**
+    - **Validation:**
+        - OrderId musr be valid
+        - `ShippingDirections` is required (cannot be `null`)
+        - `List<ShippedItem>` cant be empty/null
+        - The products must be on the order AND items that this supplier provides
+        - Quantities must be greater than zero and less than or equal to the quantity outstanding
+        - Shipper must exist
+        - Freight charge must be either null (no charge) or > $0.00
+    - **Processing:** (Tables/data that must be updated/inserted/deleted/whatever)
+        - Create new shipment
+        - Add all manifest items
+        - check if order is complete; if so, update Order.Shipped
