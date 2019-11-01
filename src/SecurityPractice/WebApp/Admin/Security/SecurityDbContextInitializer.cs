@@ -42,12 +42,20 @@ namespace WebApp.Admin.Security
             {
                 var user = new ApplicationUser
                 {
-                    //UserName = $"{staff.FirstName}.{staff.LastName}" <- this is where i am yeet
+                    UserName = $"{employee.FirstName}.{employee.LastName}",
+                    Email = $"{employee.FirstName}.{employee.LastName}@Practice.com",
+                    EmailConfirmed = true,
+                    StaffId = employee.StaffId // why not???
+                };
+                result = userManager.Create(user, "Pa$$w0rd");
+                if (result.Succeeded)
+                {
+                    var userId = userManager.FindByName(user.UserName).Id;
+                    userManager.AddToRoles(userId, "Registered users");
                 }
             }
 
             #endregion
-
 
             base.Seed(context);
         }
