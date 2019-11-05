@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using WebApp.Admin.Security;
 
 namespace WebApp
 {
@@ -70,6 +71,18 @@ namespace WebApp
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void Page_PreRender(object sender, EventArgs e) // makes a oage available for admin and only admin
+        {
+            //if(Request.IsAuthenticated && Page.User.IsInRole(Settings.AdminRole))
+            //{
+            //    SecurityAdmin.Visible = true;
+            //} else
+            //{
+            //    SecurityAdmin.Visible = false; // hides page if no logged in
+            //}
+            SecurityAdmin.Visible = Request.IsAuthenticated && Page.User.IsInRole(Settings.AdminRole); // same as above but one line. if true then set to true, if false set to false
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
