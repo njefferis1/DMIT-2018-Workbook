@@ -6,7 +6,7 @@ namespace DemoSystem.DAL
     using System.Linq;
     using DemoSystem.Entities;
 
-    internal partial class DemoContext : DbContext
+    internal partial class DemoContext : DbContext // changes from public to internal
     {
         public DemoContext()
             : base("name=DefaultConnection")
