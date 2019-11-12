@@ -24,7 +24,6 @@ namespace WestWindSystem.BLL
             */
         }
         
-
         public List<ShipperSelection> ListShippers()
         {
             using(var context = new WestWindContext())
