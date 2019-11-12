@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WestWindSystem.DataModels
 {
-    class Class1
+    class ShipperSelection
     {
+        public int ShipperId { get; set; }
+        public string Shipper { get; set; }
     }
 }
