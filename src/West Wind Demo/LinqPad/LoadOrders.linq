@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Connection>
     <ID>c7db4e33-b944-4314-a549-59bce3958035</ID>
-    <Persist>true</Persist>
     <Server>.</Server>
     <Database>WestWind</Database>
   </Connection>
@@ -9,7 +8,7 @@
 
 void Main()
 {
-	int supplier = 8; // 2, 7, 8, 16, 19
+	int supplier = 2; // 2, 7, 8, 16, 19
 	var output = LoadOrders(supplier);
 	output.Dump();
 }
@@ -21,7 +20,7 @@ void Main()
 		from sale in Orders
 		where !sale.Shipped
 			&& sale.OrderDate.HasValue
-		select new //OutstandingOrder
+		select new OutstandingOrder
 		{
 			OrderId = sale.OrderID,
 			ShipToName = sale.ShipName,
@@ -29,7 +28,7 @@ void Main()
 			RequiredBy = sale.RequiredDate.Value,
 			OutstandingItems = from item in sale.OrderDetails
 								where item.Product.SupplierID == supplierId
-								select new //OrderItem
+								select new OrderItem
 								{
 									ProductID = item.ProductID,
 									ProductName = item.Product.ProductName,

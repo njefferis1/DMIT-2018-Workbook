@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WestWindSystem.DataModels
 {
-    class OrderItem
+    public class OrderItem
     {
         public int ProductID { get; set; }
         public string ProductName { get; set; }
