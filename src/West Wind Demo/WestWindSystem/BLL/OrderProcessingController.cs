@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WestWindSystem.DAL;
 using WestWindSystem.DataModels;
+using WestWindSystem.Entities;
 
 namespace WestWindSystem.BLL
 {
@@ -123,12 +124,32 @@ namespace WestWindSystem.BLL
                 }
 
                 // TODO: Process Order shipment
-                /*
-                 Processing (tables/data that must be updated/inserted/deleted/whatever)
-                    Create new Shipment
-                    Add all manifest items
-                    Check if order is complete; if so, update Order.Shipped
-                */
+                // 1) Create new shipment
+                var ship = new Shipment
+                {
+                    OrderID = orderId,
+                    ShipVia = shipping.ShipperId,
+                    TrackingCode = shipping.TrackingCode,
+                    FreightCharge = shipping.FreightCharge.HasValue ? shipping.FreightCharge.Value : 0
+                };
+                // 2) Create manifest items for shipment
+                foreach(var item in items)
+                {
+                    // Notice that im adding the manifest item to the shipment object rather than directly to the database context.
+                    // Thats because, by adding to the shipment object, the correct values for foreign key fields will be assigned to the new data.
+                    ship.ManifestItems.Add(new ManifestItem
+                    {
+                        ProductID = int.Parse(item.Product),
+                        ShipQuantity  = item.Quantity
+                    });
+                }
+                // TODO: 3) Check if order is complete; if so, update Order.Shipped
+
+                // 4) Add the shipment to the context
+                context.Shipments.Add(ship);
+
+                // 5) Save changes as a single transaction
+                context.SaveChanges();
             }
         }
         #endregion
